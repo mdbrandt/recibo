@@ -12,6 +12,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <provider android:name="recibo.platform.ReciboContentProvider"
+        		  android:authorities="recibo.platform.recibocontentprovider">
+		</provider>
 
     </application><activity android:name="recibo.app.billshare.billshare"></activity>
 </manifest>
