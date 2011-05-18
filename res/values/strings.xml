@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Platform!</string>
+    <string name="hello">Hello world</string>
     <string name="app_name">recibo</string>
 </resources>
