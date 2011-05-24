@@ -1,7 +1,5 @@
 package recibo.platform;
 
-import java.util.Date;
-
 import recibo.platform.model.AttributeHash;
 import recibo.platform.model.Item;
 import recibo.platform.model.Receipt;

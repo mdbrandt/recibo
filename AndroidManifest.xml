@@ -12,10 +12,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+		<activity android:name="recibo.app.billshare.addUser"></activity>
+
         
         <provider android:name="recibo.platform.ReciboContentProvider"
         		  android:authorities="recibo.platform.recibocontentprovider">
 		</provider>
 
-    </application><activity android:name="recibo.app.billshare.billshare"></activity>
+
+    </application>
+    
+    
 </manifest>
