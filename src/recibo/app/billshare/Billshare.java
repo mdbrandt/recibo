@@ -85,7 +85,6 @@ public class Billshare extends Activity implements OnClickListener {
     	setContentView(R.layout.billshare_receiptview);
 
         TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
-        
         Cursor rcp = ReciboContentProvider.dummyQuery(); 
         rcp.moveToPosition(0);
         activeReceipt = new Receipt(rcp);
@@ -135,8 +134,13 @@ public class Billshare extends Activity implements OnClickListener {
           				//check if everything is taken
           				if (accountedItems.keySet().size() == activeReceipt.items.length)
           				{
-          					//compute total
+          					//TODO: compute total
           					//switch view and change totals by person
+          					//
+          			        //gridlayout.addview(tableLayout1)
+          			        //gridLayout.removeView(tableLayout1)
+          			        //replace new view
+
           				}
           			}
           			else
