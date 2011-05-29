@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,6 +34,7 @@ public class Billshare extends Activity{
 	private static final int ADD_USER_DIALOG = 1;
 	private static final int MUST_ADD_USER_DIALOG = 2;
 	private static final int ALREADY_TAKEN_DIALOG = 3;
+	private static final int BILLSHARE_DUMMY_QUERY = 0;
 	
 	private ArrayList <User> users = new ArrayList<User>();
 	private User activeUser = null;
@@ -87,7 +89,7 @@ public class Billshare extends Activity{
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	
-    	Cursor rcp = ReciboContentProvider.dummyQuery(); 
+    	Cursor rcp = ReciboContentProvider.dummyQuery(BILLSHARE_DUMMY_QUERY); 
         rcp.moveToPosition(0);
         activeReceipt = new Receipt(rcp);    	
     	
@@ -95,23 +97,12 @@ public class Billshare extends Activity{
         /*
     	setContentView(R.layout.billshare_receiptview);
         TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
-<<<<<<< HEAD
-        
-        
-        
 
-        
-        
-        //ArrayList <String> names = new ArrayList<String>();
-        //ArrayList <String> prices = new ArrayList<String>();
-        
-        
-=======
         Cursor rcp = ReciboContentProvider.dummyQuery(0); 
         rcp.moveToPosition(0);
         activeReceipt = new Receipt(rcp);
                
->>>>>>> 2694d5f261fe8e8164399e7cedf49e6153119d45
+
         //build table view using receipt items
         for (int i = 0; i < activeReceipt.items.length; i++){	
         	names.add(activeReceipt.items[i].name);
