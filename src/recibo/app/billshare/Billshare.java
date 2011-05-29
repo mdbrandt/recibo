@@ -157,7 +157,12 @@ public class Billshare extends Activity{
         lv.setOnItemClickListener(tableRowClickListener);        		
         		
         
-        
+        final Button button = (Button) findViewById(R.id.add_user_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            }
+        });
         
 
         
