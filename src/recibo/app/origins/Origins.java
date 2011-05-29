@@ -131,10 +131,10 @@ public class Origins extends MapActivity {
           first = false;
           jsonBldr.append(str);
         }
-        else jsonBldr.append("\n" + str);
+        else jsonBldr.append("\n".intern() + str);
       }
       in.close();
-      Log.i(TAG, "Fetched geocoding response: " + jsonBldr.toString());
+      //Log.i(TAG, "Fetched geocoding response: " + jsonBldr.toString());
 
       //parse json to retrieve location
       JSONObject response = (JSONObject) new JSONTokener(jsonBldr.toString()).nextValue();

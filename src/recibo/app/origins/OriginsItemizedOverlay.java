@@ -3,23 +3,22 @@ package recibo.app.origins;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
 public class OriginsItemizedOverlay<Item extends OverlayItem> extends ItemizedOverlay<Item> implements Iterable<Item> {
 
   private ArrayList<OverlayItem> overlays;
+  private StringBuilder bldr;
   private TextView detail;
 
   public OriginsItemizedOverlay(Drawable defaultMarker, TextView detailDisplay) {
     super(boundCenterBottom(defaultMarker));
     overlays = new ArrayList<OverlayItem>();
+    bldr = new StringBuilder();
     detail = detailDisplay;
   }
 
@@ -52,8 +51,18 @@ public class OriginsItemizedOverlay<Item extends OverlayItem> extends ItemizedOv
   @Override
   protected boolean onTap(int index) {
     OverlayItem o = overlays.get(index);
-    detail.setText("Item: " + o.getTitle() + ", Origin: " + o.getSnippet());
+    detail.setText("Item: " + capitalize(o.getTitle()) + "\nOrigin: " + capitalize(o.getSnippet()));
     return true;
+  }
+  
+  private String capitalize(String s) {
+    bldr.delete(0, bldr.toString().length());
+    String[] words = s.split("[ ]");
+    for (int i = 0; i < words.length; i++)
+    {
+      bldr.append(words[i].substring(0, 1).toUpperCase() + words[i].substring(1) + " ".intern());
+    }
+    return bldr.toString();
   }
 
 }

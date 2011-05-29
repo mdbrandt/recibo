@@ -9,9 +9,10 @@
     
 	<TextView 
 		android:id="@+id/detail_display" 
-		android:text="Click on an icon to display item information." 
+		android:text="@string/detail_display_default_text" 
 		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content" 
+		android:layout_height="?android:attr/listPreferredItemHeight"
+    	android:textAppearance="?android:attr/textAppearanceLarge"
 		android:gravity="top">
 	</TextView>
 	

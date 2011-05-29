@@ -77,8 +77,8 @@ public class ReciboContentProvider extends ContentProvider {
           break;
         case 1:
         default:
-          AttributeHash milk = new AttributeHash(); milk.addAttribute("origin", "Bakersfield, CA");
-          AttributeHash bread = new AttributeHash(); bread.addAttribute("origin", "Palo Alto, CA");
+          AttributeHash milk = new AttributeHash(); milk.addAttribute("origin", "bakersfield, CA");
+          AttributeHash bread = new AttributeHash(); bread.addAttribute("origin", "Palo Alto, cA");
           AttributeHash eggs = new AttributeHash(); eggs.addAttribute("origin", "Merced, CA");
           Item[] essentials = {new Item(0, 0, 0, "milk", 3.50, 0, 1, Item.CATEGORY_DRINK, milk),
               new Item(1, 0, 0, "bread", 2.50, 0, 1, Item.CATEGORY_FOOD, bread),

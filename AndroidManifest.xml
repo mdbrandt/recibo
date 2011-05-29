@@ -33,10 +33,10 @@
     <!-- Origins application -->
     <application 
     	android:icon="@drawable/icon" 
-    	android:label="@string/app_name">
+    	android:label="@string/origins_name">
     	
     	<activity 
-    		android:label="@string/app_name" 
+    		android:label="@string/origins_name"
     		android:name="recibo.app.origins.Origins">
     		<intent-filter>
                 <action android:name="android.intent.action.MAIN"  />
