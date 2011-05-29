@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 public class Item implements Serializable {
 
+  //TODO Override toString
+  
   private static final long serialVersionUID = -2764051288391158536L;
 
   public static final int CATEGORY_FOOD = 0;
@@ -49,7 +51,7 @@ public class Item implements Serializable {
   public static final String NAME = "NAME";
 
   /**
-   * Price of the item.
+   * Unit price of the item.
    * <p>Type: double</p>
    */
   public static final String PRICE = "PRICE";

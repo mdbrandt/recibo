@@ -95,6 +95,7 @@ public class Billshare extends Activity{
         /*
     	setContentView(R.layout.billshare_receiptview);
         TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
+<<<<<<< HEAD
         
         
         
@@ -105,6 +106,12 @@ public class Billshare extends Activity{
         //ArrayList <String> prices = new ArrayList<String>();
         
         
+=======
+        Cursor rcp = ReciboContentProvider.dummyQuery(0); 
+        rcp.moveToPosition(0);
+        activeReceipt = new Receipt(rcp);
+               
+>>>>>>> 2694d5f261fe8e8164399e7cedf49e6153119d45
         //build table view using receipt items
         for (int i = 0; i < activeReceipt.items.length; i++){	
         	names.add(activeReceipt.items[i].name);
