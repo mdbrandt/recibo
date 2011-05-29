@@ -85,7 +85,7 @@ public class Billshare extends Activity implements OnClickListener {
     	setContentView(R.layout.billshare_receiptview);
 
         TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
-        Cursor rcp = ReciboContentProvider.dummyQuery(); 
+        Cursor rcp = ReciboContentProvider.dummyQuery(0); 
         rcp.moveToPosition(0);
         activeReceipt = new Receipt(rcp);
                

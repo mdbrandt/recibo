@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/container"
+	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+	<TextView 
+		android:id="@+id/detail_display" 
+		android:text="Click on an icon to display item information." 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:gravity="top">
+	</TextView>
+	
+	<com.google.android.maps.MapView
+        android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:apiKey="0lUp-IIpsi52TPBIu5DyFty_IASWkzDk0pvxzzA" />
+        
+    <LinearLayout
+		android:id="@+id/filters"
+    	android:orientation="horizontal"	
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="bottom">
+    	
+    	<Button
+    		android:id="@+id/filter_by_category" 
+    		android:layout_width="wrap_content"          
+    		android:layout_height="wrap_content"
+    		android:text="Filter By Category" />
+   	</LinearLayout>
+   	
+</LinearLayout>

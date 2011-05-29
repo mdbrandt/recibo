@@ -21,6 +21,8 @@ import android.database.Cursor;
  */
 public class Receipt {
 
+  //TODO Override toString()
+  
   public static final int TYPE_PROOF = 0;
   public static final int TYPE_TOKEN = 1;
   
