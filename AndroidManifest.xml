@@ -29,7 +29,6 @@
 		
     </application> -->
     
-    
     <!-- Origins application -->
     <application 
     	android:icon="@drawable/icon" 

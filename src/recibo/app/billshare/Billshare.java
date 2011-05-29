@@ -87,7 +87,7 @@ public class Billshare extends Activity{
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	
-    	Cursor rcp = ReciboContentProvider.dummyQuery(); 
+    	Cursor rcp = ReciboContentProvider.dummyQuery(0); 
         rcp.moveToPosition(0);
         activeReceipt = new Receipt(rcp);    	
     	
