@@ -1,7 +1,9 @@
 package recibo.app.billshare;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import recibo.platform.R;
 import recibo.platform.ReciboContentProvider;
@@ -15,15 +17,17 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.TableLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 
-public class Billshare extends Activity implements OnClickListener {
+public class Billshare extends Activity{
 	
 	private static final String TAG = "debug";
 	private static final int ADD_USER_DIALOG = 1;
@@ -82,80 +86,143 @@ public class Billshare extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.billshare_receiptview);
-
-        TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
-        Cursor rcp = ReciboContentProvider.dummyQuery(); 
+    	
+    	Cursor rcp = ReciboContentProvider.dummyQuery(); 
         rcp.moveToPosition(0);
-        activeReceipt = new Receipt(rcp);
-               
+        activeReceipt = new Receipt(rcp);    	
+    	
+        
+        /*
+    	setContentView(R.layout.billshare_receiptview);
+        TableLayout table = (TableLayout) findViewById(R.id.tableLayout1);
+        
+        
+        
+
+        
+        
+        //ArrayList <String> names = new ArrayList<String>();
+        //ArrayList <String> prices = new ArrayList<String>();
+        
+        
         //build table view using receipt items
         for (int i = 0; i < activeReceipt.items.length; i++){	
+        	names.add(activeReceipt.items[i].name);
+        	prices.add(Double.toString(activeReceipt.items[i].price));
         	TextView name = new TextView(this);
+        	//TextView name = (TextView) findViewById(R.id.name);
         	name.setText(activeReceipt.items[i].name);
         	TextView price = new TextView(this);
+        	//TextView price = (TextView) findViewById(R.id.price);
         	price.setText(Double.toString(activeReceipt.items[i].price));
         	TableRow tr = new TableRow(this);
         	tr.setId(activeReceipt.items[i]._id);
         	tr.addView(name);
         	tr.addView(price);
         	tr.setOnClickListener(this);
-        	table.addView(tr);	
+        	//table.addView(tr);	
         }
-       
+        
+        
+        
+        
         Button b = new Button(this);
         b.setText("Add Person");
         b.setOnClickListener(this);
         
         table.addView(b);
-    }
-    
-    public void onClick (View v){
-    	if (v.getClass().getName() == android.widget.Button.class.getName())
-    	{
-    		showDialog(ADD_USER_DIALOG); //set the active user	
-    	}
-    	else if (v.getClass().getName() == android.widget.TableRow.class.getName())
-    	{
-    		if (activeUser == null) showDialog(MUST_ADD_USER_DIALOG); //insist on at least one user
-    		else
-    		{	
-          		Item i = getItemByID(((TableRow)v).getId());
-          		
-          		if (i != null)
-          		{
-          		//add to accounted for items map.
-          			if (!accountedItems.containsKey(i._id))
-          			{
-          				//add item
-          				accountedItems.put(i._id, activeUser.getName());
-          				((TableRow)v).setBackgroundColor(activeUser.color);
-          				
-          				//check if everything is taken
-          				if (accountedItems.keySet().size() == activeReceipt.items.length)
-          				{
-          					//TODO: compute total
-          					//switch view and change totals by person
-          					//
-          			        //gridlayout.addview(tableLayout1)
-          			        //gridLayout.removeView(tableLayout1)
-          			        //replace new view
+        
+        */
+        
+        
+        setContentView(R.layout.billshare_receiptview);
+        ListView lv = (ListView)findViewById(R.id.listview);
+        String[] from = new String[] {"name", "price", "ID"};
+        int[] to = new int[] { R.id.item_name, R.id.item_price, R.id.item_id};
+        
+        List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
+        for (int i = 0; i < activeReceipt.items.length; i++){
+        	HashMap<String, String> map = new HashMap<String, String>();
+        	
+        	map.put("name", activeReceipt.items[i].name);
+        	DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
+        	map.put("price", priceFormatter.format(activeReceipt.items[i].price));
+        	map.put("ID", Integer.toString(activeReceipt.items[i]._id));
+        	fillMaps.add(map);
+        }
+        
+        // fill in the grid_item layout
+        SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, from, to);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(tableRowClickListener);        		
+        		
+        
+        
+        
 
-          				}
-          			}
-          			else
-          			{
-          				showDialog(ALREADY_TAKEN_DIALOG);
-          			}
-          		}      		
-    		}            		
-    	}
-    	else
-    	{
-    		throw new RuntimeException("Unrecognized click.");
-    	}
-    	
+        
+        
     }
+
+    private OnItemClickListener buttonClickListener = new OnItemClickListener(){
+    	public void onItemClick (AdapterView parent, View v, int position, long id){
+    		
+    	}
+    };
+    private OnItemClickListener tableRowClickListener = new OnItemClickListener(){
+    	public void onItemClick (AdapterView parent, View v, int position, long id){
+	    /*	if (v.getClass().getName() == android.widget.Button.class.getName())
+	    	{
+	    		showDialog(ADD_USER_DIALOG); //set the active user	
+	    	}
+	    
+    	
+	    	else if (v.getClass().getName() == R.id.listview.class.getName())//android.widget.TableRow.class.getName())
+	    	{
+	    		*/
+	    		if (activeUser == null) showDialog(MUST_ADD_USER_DIALOG); //insist on at least one user
+	    		else
+	    		{	
+	          		//Item i = getItemByID(((TableRow)v).getId());
+	    			Item i = getItemByID(Integer.parseInt(((TextView)(((LinearLayout)v).findViewById(R.id.item_id))).getText().toString()));
+	          		
+	          		if (i != null)
+	          		{
+	          		//add to accounted for items map.
+	          			if (!accountedItems.containsKey(i._id))
+	          			{
+	          				//add item
+	          				accountedItems.put(i._id, activeUser.getName());
+	          				((TableRow)v).setBackgroundColor(activeUser.color);
+	          				
+	          				//check if everything is taken
+	          				if (accountedItems.keySet().size() == activeReceipt.items.length)
+	          				{
+	          					//TODO: compute total
+	          					//switch view and change totals by person
+	          					//
+	          			        //gridlayout.addview(tableLayout1)
+	          			        //gridLayout.removeView(tableLayout1)
+	          			        //replace new view
+	
+	          				}
+	          			}
+	          			else
+	          			{
+	          				showDialog(ALREADY_TAKEN_DIALOG);
+	          			}
+	          		}      		
+	    		}
+	    		/*
+	    	}
+    
+	    	else
+	    	{
+	    		throw new RuntimeException("Unrecognized click.");
+	    	}
+*/	    	
+	    }
+    };
     
     public Dialog onCreateDialog(int id, Bundle args) {
     	switch (id) {
