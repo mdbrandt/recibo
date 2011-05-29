@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="origins_name">Origins</string>
+    <string name="detail_display_default_text">"Click on a pin to display item information."</string>
+</resources>

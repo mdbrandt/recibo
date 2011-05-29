@@ -57,24 +57,51 @@ public class ReciboContentProvider extends ContentProvider {
     private Receipt[] rcpts;
     private int pos;
 
-    public DummyCursor() {
-      Item[] items0 = {new Item(0, 0, 0, "crab cakes", 11.00, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
-          new Item(1, 0, 0, "ceviche", 11.50, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
-          new Item(2, 0, 0, "ropa vieja", 18.00, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
-          new Item(3, 0, 0, "paella de la bodeguita", 48.00, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
-          new Item(4, 0, 0, "negro modelo", 3.50, 0, 2, Item.CATEGORY_DRINK, new AttributeHash())};
-      Item[] items1 = {new Item(0, 1, 0, "tomatoes", 4.55, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
-          new Item(1, 1, 0, "pasta", 2.99, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
-          new Item(2, 1, 0, "ice cream", 6.99, 0, 1, Item.CATEGORY_FOOD, new AttributeHash())};
-      Item[] items2 = {new Item(0, 2, 0, "suit cleaning", 20.00, 0, 1, Item.CATEGORY_DRYCLEANING, new AttributeHash())};
+    public DummyCursor(int which) {
+      switch (which) {
+        case 0:
+          Item[] bodeguita = {new Item(0, 0, 0, "crab cakes", 11.00, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
+              new Item(1, 0, 0, "ceviche", 11.50, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
+              new Item(2, 0, 0, "ropa vieja", 18.00, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
+              new Item(3, 0, 0, "paella de la bodeguita", 48.00, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
+              new Item(4, 0, 0, "negro modelo", 3.50, 0, 2, Item.CATEGORY_DRINK, new AttributeHash())};
+          Item[] groceries = {new Item(0, 1, 0, "tomatoes", 4.55, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
+              new Item(1, 1, 0, "pasta", 2.99, 0, 1, Item.CATEGORY_FOOD, new AttributeHash()),
+              new Item(2, 1, 0, "ice cream", 6.99, 0, 1, Item.CATEGORY_FOOD, new AttributeHash())};
+          Item[] dryCleaning = {new Item(0, 2, 0, "suit cleaning", 20.00, 0, 1, Item.CATEGORY_DRYCLEANING, new AttributeHash())};
 
-      rcpts = new Receipt[3];
-      rcpts[0] = new Receipt(0, System.currentTimeMillis(), Receipt.TYPE_PROOF, System.currentTimeMillis(), "La Bodeguita Del Medio", Receipt.CATEGORY_DINING, 18.00, items0, new AttributeHash());
-      rcpts[1] = new Receipt(1, System.currentTimeMillis(), Receipt.TYPE_PROOF, System.currentTimeMillis(), "Trader Joe's", Receipt.CATEGORY_GROCERY, 9.25, items1, new AttributeHash());
-      rcpts[2] = new Receipt(2, System.currentTimeMillis(), Receipt.TYPE_TOKEN, System.currentTimeMillis(), "Palo Alto Cleaners", Receipt.CATEGORY_SERVICE, 9.25, items2, new AttributeHash());
+          rcpts = new Receipt[3];
+          rcpts[0] = new Receipt(0, System.currentTimeMillis(), Receipt.TYPE_PROOF, System.currentTimeMillis(), "La Bodeguita Del Medio", Receipt.CATEGORY_DINING, 18.00, bodeguita, new AttributeHash());
+          rcpts[1] = new Receipt(1, System.currentTimeMillis(), Receipt.TYPE_PROOF, System.currentTimeMillis(), "Trader Joe's", Receipt.CATEGORY_GROCERY, 9.25, groceries, new AttributeHash());
+          rcpts[2] = new Receipt(2, System.currentTimeMillis(), Receipt.TYPE_TOKEN, System.currentTimeMillis(), "Palo Alto Cleaners", Receipt.CATEGORY_SERVICE, 9.25, dryCleaning, new AttributeHash());
+          break;
+        case 1:
+        default:
+          AttributeHash milk = new AttributeHash(); milk.addAttribute("origin", "bakersfield, CA");
+          AttributeHash bread = new AttributeHash(); bread.addAttribute("origin", "Palo Alto, cA");
+          AttributeHash eggs = new AttributeHash(); eggs.addAttribute("origin", "Merced, CA");
+          Item[] essentials = {new Item(0, 0, 0, "milk", 3.50, 0, 1, Item.CATEGORY_DRINK, milk),
+              new Item(1, 0, 0, "bread", 2.50, 0, 1, Item.CATEGORY_FOOD, bread),
+              new Item(2, 0, 0, "eggs", 4.00, 0, 1, Item.CATEGORY_FOOD, eggs)};
+          AttributeHash beer = new AttributeHash(); beer.addAttribute("origin", "Boston, MA");
+          AttributeHash charcoal = new AttributeHash(); charcoal.addAttribute("type", "easy light");
+          AttributeHash asparagus = new AttributeHash(); asparagus.addAttribute("suggestion", "grill these");
+          AttributeHash skewers = new AttributeHash(); skewers.addAttribute("origin", "Flint, MI");
+          AttributeHash beef = new AttributeHash(); beef.addAttribute("origin", "Topeka, Kansas");
+          Item[] party = {new Item(0, 1, 0, "beer", 18.99, 0, 1, Item.CATEGORY_DRINK, beer),
+              new Item(1, 1, 0, "charcoal", 15.00, 0, 1, Item.CATEGORY_OTHER, charcoal),
+              new Item(2, 1, 0, "asparagus", 6.34, 0, 1, Item.CATEGORY_FOOD, asparagus),
+              new Item(3, 1, 0, "beef", 11.99, 0, 1, Item.CATEGORY_FOOD, beef),
+              new Item(4, 1, 0, "skewers", 7.99, 0, 1, Item.CATEGORY_OTHER, skewers)};
+          rcpts = new Receipt[2];
+          rcpts[0] = new Receipt(0, System.currentTimeMillis(), Receipt.TYPE_PROOF, System.currentTimeMillis(), "Whole Foods", Receipt.CATEGORY_GROCERY, 9.25, essentials, new AttributeHash());
+          rcpts[1] = new Receipt(1, System.currentTimeMillis(), Receipt.TYPE_PROOF, System.currentTimeMillis(), "Safeway", Receipt.CATEGORY_GROCERY, 9.25, party, new AttributeHash());
+          break;
+      }
 
       pos = 0;
     }
+
 
     @Override
     public void close() {
@@ -327,10 +354,11 @@ public class ReciboContentProvider extends ContentProvider {
 
   /**
    * 
+   * @param which the fake receipt to return: 0 for Billshare, 1 for Origins
    * @return <code>Cursor</code> pointing to a fake receipt database
    */
-  public static Cursor dummyQuery() {
-    return new DummyCursor();
+  public static Cursor dummyQuery(int which) {
+    return new DummyCursor(which);
   }
 
   private static final int RECEIPTS = 1;
@@ -371,7 +399,7 @@ public class ReciboContentProvider extends ContentProvider {
     defaultItemValues.put(Item.UNITS, 0);
     defaultItemValues.put(Item.CATEGORY, Item.CATEGORY_OTHER);
     defaultItemValues.put(Item.ATTRIBUTES, (byte[])null);
-    
+
     invalidationUpdate = new ContentValues();
     invalidationUpdate.put(Receipt.VALID, 0);
   }
